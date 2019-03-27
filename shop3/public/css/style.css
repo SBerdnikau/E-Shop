@@ -230,7 +230,8 @@ li {
   .product-in-sc-img {
     width: 75px;
     height: 85px;
-    float: left; }
+    float: left;
+    background-size: cover; }
 
 .product-in-sc-desc {
   float: left;
