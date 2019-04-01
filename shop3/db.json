@@ -1,87 +1,73 @@
 {
     "items": [
       {
+        "id": 1,
         "image": "img/un1.jpg",
         "name": "Mango People T-shirt",
-        "price": 52,
-        "category": "featured",
-        "id": 1,
-        "color": "Black",
-        "size": "S"
+        "price": 52
       },
       {
-        "image": "img/un2.jpg",
-        "name": "Mango People T-shirt",
-        "price": 152,
-        "category": "featured",
         "id": 2,
-        "color": "Black",
-        "size": "S"
+        "image": "img/un2.jpg",
+        "name": "Like T-shirt",
+        "price": 152
       },
       {
-        "image": "img/un3.jpg",
-        "name": "Mango People T-shirt",
-        "price": 42,
-        "category": "featured",
         "id": 3,
-        "color": "Black",
-        "size": "S"
+        "image": "img/un3.jpg",
+        "name": "People T-shirt",
+        "price": 42
       },
       {
-        "image": "img/un4.jpg",
-        "name": "Mango People T-shirt",
-        "price": 52,
-        "category": "featured",
         "id": 4,
-        "color": "Black",
-        "size": "S"
+        "image": "img/un4.jpg",
+        "name": "Molly T-shirt",
+        "price": 52
       },
       {
-        "image": "img/un5.jpg",
-        "name": "Mango People T-shirt",
-        "price": 50,
-        "category": "featured",
         "id": 5,
-        "color": "Black",
-        "size": "S"
+        "image": "img/un5.jpg",
+        "name": "Mango Bi T-shirt",
+        "price": 50
       },
       {
-        "image": "img/un6.jpg",
-        "name": "Mango People T-shirt",
-        "price": 52,
-        "category": "featured",
         "id": 6,
-        "color": "Black",
-        "size": "S"
+        "image": "img/un6.jpg",
+        "name": "Lee T-shirt",
+        "price": 52
       },
       {
-        "image": "img/un7.jpg",
-        "name": "Mango People T-shirt",
-        "price": 102,
-        "category": "featured",
         "id": 7,
-        "color": "Black",
-        "size": "S"
+        "image": "img/un7.jpg",
+        "name": "Mango Music T-shirt",
+        "price": 102
       },
       {
-        "image": "img/un8.jpg",
-        "name": "Mango People T-shirt",
-        "price": 52,
-        "category": "featured",
         "id": 8,
-        "color": "Black",
-        "size": "S"
+        "image": "img/un8.jpg",
+        "name": "Brand Lee T-shirt",
+        "price": 52
+
       }
     ],
+
     "cart": [
       {
-        "id": "4",
-        "name": "Mango People T-shirt",
-        "price": "52",
-        "image": "img/un4.jpg",
-        "color": "Black",
-        "size": "S",
+        "id": 8,
+        "name": "Brand lee T-shirt",
+        "price": 52,
+        "image": "img/un8.jpg",
+        "quantity": 2
+      },
+      {
+        "id": 7,
+        "image": "img/un7.jpg",
+        "name": "Mango Music T-shirt",
+        "price": 102,
         "quantity": 1
       }
     ]
+    
   }
+
+  
