@@ -31,7 +31,7 @@ class Item {
                 <i class="fas fa-star rat"></i>
             </div>
         </a>
-        <a id="add" href="#" class="add" data-id="${this.id}" data-name="${this.name}" data-price="${this.price}" data-image="${this.image}" data-quantity="${this.quantity=1}" >Add to&nbsp;Cart</a>
+        <a id="add" href="#" class="add" data-id="${this.id}" data-name="${this.name}" data-price="${this.price}" data-image="${this.image}"  >Add to&nbsp;Cart</a>
     </article>`;
     } 
 
@@ -98,7 +98,7 @@ class Cart{
 
                                     </div>
                                 </a>
-                                <div class="sh__action"><a href="#" class="action"><i
+                                <div class="sh__action"><a href="#" class="action" data-id="${this.id}" data-name="${this.name}" data-price="${this.price}" data-image="${this.image}" data-quantity="${this.quantity}"><i
                                         class="far fa-times-circle"></i></a></div>
 
                             </div>`;
@@ -144,6 +144,50 @@ class ItemsCart{
         },0 );
     }
 
+    addToCart() {
+        let $container = document.querySelector('.flex-catalog');
+        $container.addEventListener('click', (event) => {
+                let name = event.target.dataset.name;
+                let price = event.target.dataset.price;
+                let id = event.target.dataset.id;
+                let image = event.target.dataset.image;
+                let quantity = 1;
+                if(this.itemsCart.includes(name)) {
+                    fetch(`/cart/${id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({quantity})
+                    })
+                } else {
+                    this.itemsCart.push(name);
+                    fetch('/cart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({id, image, name, price, quantity})
+                    });
+                }
+            });
+        };
+
+        deleteItemCart(){
+            const $container = document.querySelector(".render__cartList");
+            $container.addEventListener('click', (event) => {
+                if(event.target.classList.contains('sh__action')) {
+                    const id = event.target.dataset.id;
+
+                    fetch(`/cart/${id}`, { method: 'DELETE' })
+                    .then( () => {
+                        $container.removeChild(event.target.parentElement);
+                    } )
+                }
+            });
+
+        }
+
 
 }
 
@@ -157,15 +201,15 @@ items.fetchItems().then( () => {
 //обьект для отрисовки корзины
 const cartItems = new ItemsCart();
 cartItems.fetchCartItems().then(
-     () => { document.querySelector('.render__cartList').innerHTML = cartItems.render(); }
+    () => { 
+        document.querySelector('.render__cartList').innerHTML = cartItems.render();
+         //общая сумма товаров в корзине
+        document.querySelector('.total__price').innerHTML = '$'+cartItems.totalPrice();
+         //общее количество товаров в корзине
+        document.querySelector('.sh-count').innerHTML = cartItems.totalCount();
+     }
 );
-
-//общая сумма товаров в корзине
-document.querySelector('.total__price').innerHTML = '$'+cartItems.totalPrice();
-
-//общее количество товаров в корзине
-document.querySelector('.sh-count').innerHTML = cartItems.totalCount();
-
+   
 //поле поиска
 const $searchText = document.querySelector('.search');
 const $searchButton = document.querySelector('.search__button');
@@ -176,27 +220,19 @@ $searchButton.addEventListener('click', () => {
     document.querySelector('.flex-catalog').innerHTML = items.render();
 });
 
-const $add = document.querySelector('.add');
-console.log($add);//NULL
-if($add !== null){
-    $add.addEventListener('click', (event) => {
-        event.preventDefault();
-        const image = event.dataset.image;
-        const name = event.dataset.name;
-        const price = event.dataset.price;
-        const quantity = event.dataset.quantity;
-        fetch('/items', {
-            mathod: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({image,name,price,quantity}),
-        })
-            .then((response) => response.json())
-            .then((item) => {
-                document.querySelector('.render__cartList').innerHTML = item.render();
-            })
-    });
-}
+const $add = document.querySelector('.flex-catalog');
+$add.addEventListener('click', () => {
+    event.preventDefault();
+    if (event.target.tagName !== 'A') return  ;
+    cartItems.addToCart();
+});
+
+const $delete = document.querySelector('.render__cartList');
+$delete.addEventListener('click', () => {
+    event.preventDefault();
+    if(event.target.classList.contains('sh__action')) return alert('11')  ;
+    cartItems.deleteItemCart();
+});
+
 
 
