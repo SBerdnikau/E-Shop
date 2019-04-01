@@ -1,30 +1,19 @@
-function sendRequst(url) {
-    return new Promise((resolve) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url);
-        xhr.send();
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                resolve(JSON.parse(xhr.responseText));
-            }
-        }
-    });
-
+//парсим json файл
+function sendRequest(url) {
+    return fetch(url).then( (response) => response.json() )
 }
 
-
-const API_URL = "http://localhost:3000/";
+//Адресс сервера (БД)
+const API_URL = 'http://localhost:3000';
 
 //Элемент коталога товаров
 class Item {
-    constructor(id, name, price, image, color, size){
+    constructor(id, name, price, image){
         this.id = id;
         this.name = name;
         this.price = price;
         this.image = image;
-        this.color = color;
-        this.size = size;
     }
 
     //отрисовка товара коталога
@@ -42,7 +31,7 @@ class Item {
                 <i class="fas fa-star rat"></i>
             </div>
         </a>
-        <a href="shopping-card.html" class="add" data-id="${this.id}" data-name="${this.name}" data-price="${this.price}" data-image="${this.image}" data-color="${this.color}" data-size="${this.size}">Add to&nbsp;Cart</a>
+        <a id="add" href="#" class="add" data-id="${this.id}" data-name="${this.name}" data-price="${this.price}" data-image="${this.image}" data-quantity="${this.quantity=1}" >Add to&nbsp;Cart</a>
     </article>`;
     } 
 
@@ -55,33 +44,38 @@ class ItemsList {
         this.items = [];
     }
 
+    //Парсим БД файл
     fetchItems() {
         return new Promise((resolve) => {
-            resolve(sendRequst(`${API_URL}/items`).then(
+            resolve(sendRequest(`${API_URL}/items`).then(
                 (items) => {
-                    this.items = items.map(item => new Item(item.id, item.name, item.price, item.image, item.color, item.size));
+                    this.items = items.map(item => new Item(item.id, item.name, item.price, item.image));
                 }
             ));
         });
     }
     
+    //отрисовываем каталог
     render(){
-        const lisiHtml = this.items.map(item =>item.render());
-        return lisiHtml.join('');
+        const listHtml = this.items.map(item =>item.render());
+        return listHtml.join('');
+    }
+
+    filterItems(query) {
+        const regexp = new RegExp(query, 'i');
+        this.filteredItems = this.items.filter((item) => regexp.test(item.name))
     }
 
 }
 
 //Элемент корзины
 class Cart{
-    constructor(id, name, price, image, quantity, color, size) {
+    constructor(id, name, price, image, quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.image = image;
         this.quantity = quantity;
-        this.color = color;
-        this.size = size;
     }
 
     //отрисовка товара
@@ -92,7 +86,7 @@ class Cart{
                                     </div>
 
                                     <div class="product-in-sc-desc">
-                                        <h3 class="h3-sc-name">${this.title}</h3>
+                                        <h3 class="h3-sc-name">${this.name}</h3>
                                         <div class="sc-rating">
                                             <i class="fas fa-star rat"></i>
                                             <i class="fas fa-star rat"></i>
@@ -100,7 +94,7 @@ class Cart{
                                             <i class="fas fa-star rat"></i>
                                             <i class="fas fa-star rat"></i>
                                         </div>
-                                        <div class="sc-count">${this.count}&nbsp;x $${this.price.toFixed(2)}</div>
+                                        <div class="sc-count">${this.quantity}&nbsp;x $${this.price}</div>
 
                                     </div>
                                 </a>
@@ -119,16 +113,18 @@ class ItemsCart{
         this.itemsCart = [];
     }
 
+    //Парсим БД файл
     fetchCartItems() {
         return new Promise((resolve) => {
-            resolve(sendRequst(`${API_URL}/cart`).then(
-                (items) => {
-                    this.itemsCart = items.map(item => new Cart(item.id, item.name, item.price, item.image, item.quantity, item.color, item.size));
+            resolve(sendRequest(`${API_URL}/cart`).then(
+                (itemsCart) => {
+                    this.itemsCart = itemsCart.map(item => new Cart(item.id, item.name, item.price, item.image, item.quantity));
                 }
             ));
         });
     }
 
+    //отрисовка товаров
     render() {
         const itemsHtmls = this.itemsCart.map(item => item.render());
         return itemsHtmls.join('');
@@ -137,7 +133,7 @@ class ItemsCart{
     totalPrice(){
         //общая сумма в корзине
         return this.itemsCart.reduce( (acc, item) => {
-            return acc + (item.price * item.count);
+            return acc + (item.price * item.quantity);
         }, 0 );
     }
 
@@ -148,91 +144,74 @@ class ItemsCart{
         },0 );
     }
 
-    addItem(data) {
-        sendRequst(`${API_URL}/cart`).then(
-            (items) => {
-                if (!items.length) {
-                    const xhr = new XMLHttpRequest();
-                    xhr.open("POST", `${API_URL}/cart`, true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-
-                    xhr.onreadystatechange = () => {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            JSON.parse(xhr.responseText);
-                        }
-                    };
-
-                    data.quantity = 1;
-                    const newItem = JSON.stringify(data);
-                    xhr.send(newItem);
-                } else {
-                    items.forEach((item, i) => {
-                        if (+item.id === +data.id) {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("PATCH", `${API_URL}/cart/${+data.id}`, true);
-                            xhr.setRequestHeader("Content-Type", "application/json");
-
-                            xhr.onreadystatechange = () => {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    JSON.parse(xhr.responseText);
-                                }
-                            };
-
-                            const newItem = JSON.stringify({"quantity": +item.quantity + 1});
-                            xhr.send(newItem);
-                        }
-
-                        if (i === items.length - 1) {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("POST", `${API_URL}/cart`, true);
-                            xhr.setRequestHeader("Content-Type", "application/json");
-
-                            xhr.onreadystatechange = () => {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    JSON.parse(xhr.responseText);
-                                }
-                            };
-
-                            data.quantity = 1;
-                            const newItem = JSON.stringify(data);
-                            xhr.send(newItem);
-                        }
+    addToCart() {
+        let $container = document.querySelector(".flex-catalog");
+        $container.addEventListener("click", (event) => {
+                let name = event.target.dataset.name;
+                let price = event.target.dataset.price;
+                let id = event.target.dataset.id;
+                let image = event.target.dataset.image;
+                let quantity = 1;
+                if(this.itemsCart.includes(name)) {
+                    fetch("/cart/${id}", {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({quantity})
                     })
+                } else {
+                    this.itemsCart.push(name);
+                    fetch("/cart", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({id, image, name, price, quantity})
+                    });
                 }
-            }
-        )
-    }
-
-
-
+            });
+        };
 
 
 }
 
 //обьект для отрисовки коталога товаров
 const items = new ItemsList();
-items.fetchItems().then(
-    () => { document.querySelector('.flex-catalog').innerHTML = items.render(); }
+items.fetchItems().then( () => { 
+        document.querySelector('.flex-catalog').innerHTML = items.render(); 
+    }
 );
 
 //обьект для отрисовки корзины
-// const cartItems = new ItemsCart();
-// cartItems.fetchCartItems().then(
-//     () => { document.querySelector('.render__cartList').innerHTML = cartItems.render(); }
-// );
-
-// const $buttonAdd = document.querySelector('.add');
-// $buttonAdd.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     if (event.target.tagName !== 'A') return;
-//     const data = event.target.dataset;
-//     cartItems.addItem(data);
-// });
+const cartItems = new ItemsCart();
+cartItems.fetchCartItems().then(
+     () => { document.querySelector('.render__cartList').innerHTML = cartItems.render(); }
+);
 
 //общая сумма товаров в корзине
-//document.querySelector('.total__price').innerHTML = '$'+cart.totalPrice().toFixed(2);
+document.querySelector('.total__price').innerHTML = '$'+cartItems.totalPrice();
 
 //общее количество товаров в корзине
-//document.querySelector('.sh-count').innerHTML = cart.totalCount();
+document.querySelector('.sh-count').innerHTML = cartItems.totalCount();
 
-f
+//поле поиска
+const $searchText = document.querySelector('.search');
+const $searchButton = document.querySelector('.search__button');
+
+//отрисовка после поика нужного товара
+$searchButton.addEventListener('click', () => {
+    items.filterItems($searchText.value);
+    document.querySelector('.flex-catalog').innerHTML = items.render();
+});
+
+const $add = document.querySelector('.flex-catalog');
+$add.addEventListener('click', () => {
+    event.preventDefault();
+    if (event.target.tagName !== 'A') return  ;
+    cartItems.addToCart();
+});
+
+
+
+
