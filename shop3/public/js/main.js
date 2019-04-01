@@ -145,11 +145,7 @@ class ItemsCart{
     }
 
     addToCart() {
-<<<<<<< HEAD
         let $container = document.querySelector(".flex-catalog");
-=======
-        let $container = document.querySelector(".container");
->>>>>>> master
         $container.addEventListener("click", (event) => {
                 let name = event.target.dataset.name;
                 let price = event.target.dataset.price;
