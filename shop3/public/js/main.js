@@ -61,9 +61,10 @@ class ItemsList {
         return listHtml.join('');
     }
 
+    //фильтер для поиска товарорв (строка поиска)
     filterItems(query) {
         const regexp = new RegExp(query, 'i');
-        this.filteredItems = this.items.filter((item) => regexp.test(item.name))
+        this.items = this.items.filter((item) => regexp.test(item.name))
     }
 
 }
@@ -98,8 +99,8 @@ class Cart{
 
                                     </div>
                                 </a>
-                                <div class="sh__action"><a href="#" class="action" data-id="${this.id}" data-name="${this.name}" data-price="${this.price}" data-image="${this.image}" data-quantity="${this.quantity}"><i
-                                        class="far fa-times-circle"></i></a></div>
+                                <div class="sh__action" ><a href="#"  class="action" ><i
+                                        class="far fa-times-circle" data-id="${this.id}" data-name="${this.name}" data-price="${this.price}" data-image="${this.image}" data-quantity="${this.quantity}" ></i></a></div>
 
                             </div>`;
     }
@@ -130,8 +131,8 @@ class ItemsCart{
         return itemsHtmls.join('');
     }
 
+    //общая сумма в корзине
     totalPrice(){
-        //общая сумма в корзине
         return this.itemsCart.reduce( (acc, item) => {
             return acc + (item.price * item.quantity);
         }, 0 );
@@ -144,9 +145,10 @@ class ItemsCart{
         },0 );
     }
 
+    //добавление товара
     addToCart() {
-        let $container = document.querySelector(".flex-catalog");
-        $container.addEventListener("click", (event) => {
+        const $container = document.querySelector('.flex-catalog');
+        $container.addEventListener('click', (event) => {
                 let name = event.target.dataset.name;
                 let price = event.target.dataset.price;
                 let id = event.target.dataset.id;
@@ -173,22 +175,20 @@ class ItemsCart{
             });
         };
 
+        //удаление товара
         deleteItemCart(){
             const $container = document.querySelector(".render__cartList");
             $container.addEventListener('click', (event) => {
-                if(event.target.classList.contains('sh__action')) {
+                if(event.target.classList.contains('fa-times-circle')) {
+                    //event.preventDefault();
                     const id = event.target.dataset.id;
-
-                    fetch(`/cart/${id}`, { method: 'DELETE' })
+                    fetch(`/cart/${id}`, {method: 'DELETE'})
                     .then( () => {
                         $container.removeChild(event.target.parentElement);
-                    } )
+                    });
                 }
             });
-
         }
-
-
 }
 
 //обьект для отрисовки коталога товаров
@@ -200,18 +200,28 @@ items.fetchItems().then( () => {
 
 //обьект для отрисовки корзины
 const cartItems = new ItemsCart();
+
 cartItems.fetchCartItems().then(
-    () => { 
-        document.querySelector('.render__cartList').innerHTML = cartItems.render();
-         //общая сумма товаров в корзине
-        document.querySelector('.total__price').innerHTML = '$'+cartItems.totalPrice();
-         //общее количество товаров в корзине
-        document.querySelector('.sh-count').innerHTML = cartItems.totalCount();
+    () => {
+        if(cartItems.totalPrice() > 0){
+            document.querySelector('.render__cartList').innerHTML = cartItems.render();
+            //общая сумма товаров в корзине
+            document.querySelector('.total__price').innerHTML = '$'+cartItems.totalPrice();
+            //общее количество товаров в корзине
+            document.querySelector('.sh-count').innerHTML = cartItems.totalCount();
+        }else{
+            document.querySelector('.total__title').innerHTML = 'Ваша корзина пустая';
+            document.querySelector('.sh-count').style.display = 'none';
+            document.querySelector('#sc-btn__checkout').style.display = 'none';
+            document.querySelector('#sc-btn__cart').style.display = 'none';
+        }
+
      }
 );
    
 //поле поиска
 const $searchText = document.querySelector('.search');
+
 const $searchButton = document.querySelector('.search__button');
 
 //отрисовка после поика нужного товара
@@ -220,19 +230,12 @@ $searchButton.addEventListener('click', () => {
     document.querySelector('.flex-catalog').innerHTML = items.render();
 });
 
-const $add = document.querySelector('.flex-catalog');
-$add.addEventListener('click', () => {
-    event.preventDefault();
-    if (event.target.tagName !== 'A') return  ;
-    cartItems.addToCart();
-});
+//добавляем в корзину (инициализация)
+cartItems.addToCart();
 
-const $delete = document.querySelector('.render__cartList');
-$delete.addEventListener('click', () => {
-    event.preventDefault();
-    if(event.target.classList.contains('sh__action')) return alert('11')  ;
-    cartItems.deleteItemCart();
-});
+//удаляем с корзины (инициализация)
+cartItems.deleteItemCart();
+
 
 
 

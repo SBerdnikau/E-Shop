@@ -49,14 +49,5 @@
       "price": 52
     }
   ],
-  "cart": [
-    {
-      "id": "3",
-      "image": "img/un3.jpg",
-      "name": "People T-shirt",
-      "price": "42",
-      "quantity": 1
-    }
-  ]
+  "cart": []
 }
-
