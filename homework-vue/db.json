@@ -49,27 +49,5 @@
       "price": 52
     }
   ],
-  "cart": [
-    {
-      "id": 4,
-      "image": "img/un4.jpg",
-      "name": "Molly T-shirt",
-      "price": 52,
-      "quantity": 1
-    },
-    {
-      "id": 8,
-      "image": "img/un8.jpg",
-      "name": "Brand Lee T-shirt",
-      "price": 52,
-      "quantity": 1
-    },
-    {
-      "id": 2,
-      "image": "img/un2.jpg",
-      "name": "Like T-shirt",
-      "price": 152,
-      "quantity": 1
-    }
-  ]
+  "cart": []
 }
