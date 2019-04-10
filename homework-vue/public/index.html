@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div id="app" class="wrapper">
     <div class="top">
         <!--HEADER-->
         <!--Подгонка в PixelPerfect-->
@@ -48,27 +48,28 @@
                                 </ul>
                             </div>
                         </div>
-                        <input type="text" class="search" placeholder="Search for Item...">
-                        <button class="search__button"><i class="fas fa-search"></i></button>
+                        
+                        <!-- search from js/main.js  -->
+                       <search @search="handleSearchClick"></search>
+
                     </form>
                 </div>
                 <div class="header__right">
                     <div class="sh"><a href="shopping-card.html"><img src="img/Forma_1.svg" alt="basket"
                                                                      class="shopping-cart"></a>
-                        <!--from main.js   -->
-                        <div class="sh-count"></div>
-                        <div class="shopping-cart__drop">
-
-                            <!-- from javascript -->
-                            <div class="render__cartList"></div>
-                            
+                        <!-- quantity -->
+                        <div class="sh-count">{{count}}</div>
+                        <div class="shopping-cart__drop" >
+                           <!-- items cart -->                         
+                                <cart :cart="cart"   @delete="handleDeleteClick"></cart>
+                 
                             <div class="total">
-                                <div>total</div>
-                                <!-- from mai.js -->
-                                <div class="total__price"></div>
+                                <div class="total__title">total</div>
+                                <!-- total price -->
+                                <div class="total__price">&#x24;{{total}}</div>
                             </div>
-                            <a href="checkout.html" class="sc-btn">Checkout</a>
-                            <a href="shopping-card.html" class="sc-btn">go&nbsp;to&nbsp;cart</a>
+                            <a href="checkout.html" id="sc-btn__checkout" class="sc-btn">Checkout</a>
+                            <a href="shopping-card.html" id="sc-btn__cart" class="sc-btn">go&nbsp;to&nbsp;cart</a>
                         </div>
                     </div>
                     <a class="button" href="#">My&nbsp;Account<i class="fas fa-caret-down"></i></a>
@@ -397,12 +398,9 @@ FOR kids</span></h3>
         <section class="container">
             <h2 class="Fetured-h2">Fetured Items</h2>
             <p class="Fetured-p">Shop for items based on&nbsp;what we&nbsp;featured in&nbsp;this week</p>
-            <div class="flex-catalog">
-                
-                <!-- from main.js  (goods) -->
-
-            </div>
-
+                         
+            <!-- from main.js  (goods) -->
+            <products :query="filterValue" @onbuy="handleBuyClick"></products>
 
             <div class="browsebutton"><a class="button" href="catalog.html">Browse All Product<i
                     class="fas fa-long-arrow-alt-right"></i></a></div>
@@ -527,6 +525,7 @@ FOR kids</span></h3>
     <!--FOOTER-->
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
 <script src="js/main.js"></script>
 
 </body>
