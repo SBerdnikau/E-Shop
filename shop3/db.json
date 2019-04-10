@@ -49,20 +49,5 @@
       "price": 52
     }
   ],
-  "cart": [
-    {
-      "id": "1",
-      "image": "img/un1.jpg",
-      "name": "Mango People T-shirt",
-      "price": "52",
-      "quantity": 1
-    },
-    {
-      "id": 4,
-      "image": "img/un4.jpg",
-      "name": "Molly T-shirt",
-      "price": "52",
-      "quantity": 1
-    }
-  ]
+  "cart": []
 }

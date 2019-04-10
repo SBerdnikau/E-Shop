@@ -156,22 +156,22 @@ class ItemsCart{
                 let price = event.target.dataset.price;
                 let id =   event.target.dataset.id;
                 let image = event.target.dataset.image;
-                if(this.itemsCart.includes(id)) {
+                if(this.itemsCart.find(id)) {
                     fetch(`/cart/${id}`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({quantity: quantity+1})
+                        body: JSON.stringify({quantity})
                     })
                 } else {
-                    this.itemsCart.push(id);
+                    this.itemsCart.push({id, image, name, price, quantity});
                     fetch('/cart/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({id, image, name, price, quantity})
+                        body: JSON.stringify({id, image, name, price, quantity:1})
 
                     });
 
