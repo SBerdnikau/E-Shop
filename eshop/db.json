@@ -1,0 +1,97 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "image": "img/un1.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "XXL"
+    },
+    {
+      "id": 2,
+      "image": "img/un2.jpg",
+      "name": "Like T-shirt",
+      "price": 152,
+      "color": "black",
+      "size": "XL"
+    },
+    {
+      "id": 3,
+      "image": "img/un3.jpg",
+      "name": "People T-shirt",
+      "price": 42,
+      "color": "white",
+      "size": "L"
+    },
+    {
+      "id": 4,
+      "image": "img/un4.jpg",
+      "name": "Molly T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "XS"
+    },
+    {
+      "id": 5,
+      "image": "img/un5.jpg",
+      "name": "Mango Bi T-shirt",
+      "price": 50,
+      "color": "black",
+      "size": "XXL"
+    },
+    {
+      "id": 6,
+      "image": "img/un6.jpg",
+      "name": "Lee T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "L"
+    },
+    {
+      "id": 7,
+      "image": "img/un7.jpg",
+      "name": "Mango Music T-shirt",
+      "price": 102,
+      "color": "red",
+      "size": "S"
+    },
+    {
+      "id": 8,
+      "image": "img/un8.jpg",
+      "name": "Brand Lee T-shirt",
+      "price": 52,
+      "color": "white",
+      "size": "XXL"
+    }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "image": "img/un1.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "XXL",
+      "quantity": 4
+    },
+    {
+      "id": 4,
+      "image": "img/un4.jpg",
+      "name": "Molly T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "XS",
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "image": "img/un2.jpg",
+      "name": "Like T-shirt",
+      "price": 152,
+      "color": "black",
+      "size": "XL",
+      "quantity": 4
+    }
+  ]
+}
