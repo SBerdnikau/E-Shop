@@ -425,7 +425,7 @@
 
                     <div class="flex-shopping-card">
                         <div class="shopping-card-price">{{item.price}}</div>
-                        <div><input type="number" min="1" :placeholder="item.quantity" value="item.quantity"   class="quanity" v-model="item.quantity" @click="handleChangeQuantity(item)" ></div>
+                        <div><input type="number" min="1"   class="quanity" v-model.number="item.quantity" @click="handleChangeQuantity(item)" ></div>
                         <div class="shipping-shopping-card">free</div>
                         <div class="shopping-card-price">${{item.price * item.quantity}}</div>
                         <div><a href="#" class="action"><i class="far fa-times-circle" @click.prevent="handleDeleteClick(item)"></i></a></div>
@@ -433,7 +433,7 @@
                 </div>
 
                 <div class="shopping-card-buttons">
-                    <div><a href="#" class="btn">cLEAR SHOPPING CART</a></div>
+                    <div><a href="#" class="btn" >cLEAR SHOPPING CART</a></div>
                     <div><a href="checkout.html" class="btn">cONTINUE sHOPPING</a></div>
                 </div>
 

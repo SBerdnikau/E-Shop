@@ -1,0 +1,205 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "image": "img/un1.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "XXL"
+    },
+    {
+      "id": 2,
+      "image": "img/un2.jpg",
+      "name": "Like T-shirt",
+      "price": 152,
+      "color": "black",
+      "size": "XL"
+    },
+    {
+      "id": 3,
+      "image": "img/un3.jpg",
+      "name": "People T-shirt",
+      "price": 42,
+      "color": "white",
+      "size": "L"
+    },
+    {
+      "id": 4,
+      "image": "img/un4.jpg",
+      "name": "Molly T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "XS"
+    },
+    {
+      "id": 5,
+      "image": "img/un5.jpg",
+      "name": "Mango Bi T-shirt",
+      "price": 50,
+      "color": "black",
+      "size": "XXL"
+    },
+    {
+      "id": 6,
+      "image": "img/un6.jpg",
+      "name": "Lee T-shirt",
+      "price": 52,
+      "color": "red",
+      "size": "L"
+    },
+    {
+      "id": 7,
+      "image": "img/un7.jpg",
+      "name": "Mango Music T-shirt",
+      "price": 102,
+      "color": "red",
+      "size": "S"
+    },
+    {
+      "id": 8,
+      "image": "img/un8.jpg",
+      "name": "Brand Lee T-shirt",
+      "price": 52,
+      "color": "white",
+      "size": "XXL"
+    }
+  ],
+  "products-catalog": [
+    {
+      "id": 1,
+      "image": "img/catalog-img/1.jpg",
+      "name": "Shirt",
+      "price": 150,
+      "color": "white",
+      "size": "XXL"
+    },
+    {
+      "id": 2,
+      "image": "img/catalog-img/2.jpg",
+      "name": "Socks",
+      "price": 50,
+      "color": "red",
+      "size": "XL"
+    },
+    {
+      "id": 3,
+      "image": "img/catalog-img/3.jpg",
+      "name": "Jacket",
+      "price": 350,
+      "color": "black",
+      "size": "XXL"
+    },
+    {
+      "id": 4,
+      "image": "img/catalog-img/4.jpg",
+      "name": "Shoes",
+      "price": 450,
+      "color": "yellow",
+      "size": "S"
+    },
+    {
+      "id": 5,
+      "image": "img/catalog-img/5.jpg",
+      "name": "Dress",
+      "price": 550,
+      "color": "white",
+      "size": "XXL"
+    },
+    {
+      "id": 6,
+      "image": "img/catalog-img/6.jpg",
+      "name": "Suit",
+      "price": 650,
+      "color": "red",
+      "size": "XXL"
+    },
+    {
+      "id": 7,
+      "image": "img/catalog-img/7.jpg",
+      "name": "Vest",
+      "price": 750,
+      "color": "blue",
+      "size": "L"
+    },
+    {
+      "id": 8,
+      "image": "img/catalog-img/8.jpg",
+      "name": "Shoes",
+      "price": 850,
+      "color": "white",
+      "size": "XL"
+    },
+    {
+      "id": 9,
+      "image": "img/catalog-img/9.jpg",
+      "name": "Suit",
+      "price": 150,
+      "color": "black",
+      "size": "XXL"
+    }
+  ],
+  "products-single": [
+    {
+      "id": 1,
+      "image": "img/single-page/1.jpg",
+      "name": "Shirt",
+      "price": 150,
+      "color": "white",
+      "size": "XXL"
+    },
+    {
+      "id": 2,
+      "image": "img/single-page/2.jpg",
+      "name": "Socks",
+      "price": 50,
+      "color": "white",
+      "size": "S"
+    },
+    {
+      "id": 3,
+      "image": "img/single-page/3.jpg",
+      "name": "Jacket",
+      "price": 350,
+      "color": "red",
+      "size": "L"
+    },
+    {
+      "id": 4,
+      "image": "img/single-page/4.jpg",
+      "name": "Shoes",
+      "price": 450,
+      "color": "white",
+      "size": "XXL"
+    }
+  ],
+  "cart": [
+    {
+      "id": 8,
+      "image": "img/un8.jpg",
+      "name": "Brand Lee T-shirt",
+      "price": 52,
+      "color": "white",
+      "size": "XXL",
+      "quantity": 1
+    },
+    {
+      "id": 7,
+      "image": "img/un7.jpg",
+      "name": "Mango Music T-shirt",
+      "price": 102,
+      "color": "red",
+      "size": "S",
+      "quantity": 3
+    },
+    {
+      "id": 6,
+      "image": "img/catalog-img/6.jpg",
+      "name": "Suit",
+      "price": 650,
+      "color": "red",
+      "size": "XXL",
+      "quantity": 1
+    }
+  ]
+}
